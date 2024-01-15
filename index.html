@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendulums!</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>N-body pendulum physics simulator</h1>
+    <div id="controls">
+        <button onclick="pause()" id="pauseButton">Play</button>
+        <button onclick="addPointMass()">Add a particle</button>
+        <button onclick="addRod()">Add a rod</button>
+        <button onclick="clearObjects()">Clear</button>
+    </div>
+
+    <canvas id="myCanvas"></canvas>
+
+    <script src="js/utils.js"></script>
+    <script src="js/primitives/point.js"></script>
+    <script src="js/primitives/segment.js"></script>
+    <script src="js/pointMass.js"></script>
+    <script src="js/rod.js"></script>
+    <script src="js/controller.js"></script>
+    <script>
+        myCanvas.width = myCanvas.height = 400;
+        const ctx = myCanvas.getContext("2d");
+
+        const controller = new Controller(myCanvas)
+
+        function addPointMass() {
+            controller.addPointMass();
+        }
+
+        function addRod() {
+            controller.addRod();
+        }
+
+        function pause() {
+            controller.pause();
+        }
+
+        function clearObjects() {
+            controller.dispose();
+        }
+ 
+        let deltaTime = 0;
+        let lastTime = 0;
+        animate(0);
+        function animate(timestamp) {
+            deltaTime = timestamp - lastTime;
+            lastTime = timestamp;
+            ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+
+            controller.update(deltaTime)
+            controller.draw()
+
+            pauseButton.innerText = controller.paused ? "Play" : "Pause";
+            
+            requestAnimationFrame(animate)
+        }
+    </script>
+</body>
+</html>
