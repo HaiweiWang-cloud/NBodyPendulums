@@ -16,6 +16,10 @@ class Point {
         return new Point(p1.x * scalar, p1.y * scalar);
     }
 
+    equals(point) {
+        return this.x === point.x && this.y === point.y;
+    }
+
     moveTo(point) {
         this.x = point.x;
         this.y = point.y;

@@ -12,6 +12,8 @@
         <button onclick="pause()" id="pauseButton">Play</button>
         <button onclick="addPointMass()">Add a particle</button>
         <button onclick="addRod()">Add a rod</button>
+        <button onclick="save()">Save</button>
+        <button onclick="load()">Load</button>
         <button onclick="clearObjects()">Clear</button>
     </div>
 
@@ -28,6 +30,16 @@
         const ctx = myCanvas.getContext("2d");
 
         const controller = new Controller(myCanvas)
+
+        function save() {
+            localStorage.setItem("masses", JSON.stringify(controller.masses));
+            localStorage.setItem("rods", JSON.stringify(controller.rods));
+        }
+
+        function load() {
+            const info = {masses: JSON.parse(localStorage.getItem("masses")), rods: JSON.parse(localStorage.getItem("rods"))};
+            controller.load(info);
+        }
 
         function addPointMass() {
             controller.addPointMass();

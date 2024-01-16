@@ -6,6 +6,8 @@ class Controller {
         this.masses = [];
         this.rods =[];
 
+        this.gravity = 10;
+
         
         this.#setInitialState();
         
@@ -22,6 +24,7 @@ class Controller {
 
                 // Update without constraints
                 this.masses.forEach(mass => {
+                    mass.vy += this.gravity * deltaTime * MS;
                     mass.update(deltaTime);
                 });
     
@@ -44,6 +47,33 @@ class Controller {
     }
 
     // Methods
+
+    load(info) {
+        const masses = [];
+        const rods = [];
+        for (const massInfo of info.masses) {
+            const mass = new PointMass(massInfo.x, massInfo.y);
+            mass.mass = massInfo.mass;
+            masses.push(mass)
+        }
+
+        for (const rodInfo of info.rods) {
+            
+            const rod = new Rod(new Point(rodInfo.p1.x, rodInfo.p1.y), new Point(rodInfo.p2.x, rodInfo.p2.y));
+            
+            // find the attached masses based on proximity and reattach them
+            masses.forEach(mass => {
+                let attachmentPoint = rod.getOverlappingPoint(mass)
+                if (attachmentPoint) {
+                    rod.attachMass(mass);
+                }
+            });
+            rods.push(rod);
+        }
+        this.#setInitialState();
+        this.masses = masses;
+        this.rods = rods;
+    }
 
     dispose() {
         this.masses.length = 0;

@@ -8,6 +8,34 @@ class Segment {
         return distance(this.p1, this.p2);
     }
 
+    containsPoint(point) {
+        if (point === this.p1 || point === this.p2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    getPoint(point) { 
+        if (point === this.p1) {
+            return this.p1;
+        } else if (point === this.p2) {
+            return this.p2;
+        } else {
+            return null;
+        }
+    }
+
+    getOverlappingPoint(point) {
+        if (point.equals(this.p1)) {
+            return this.p1;
+        } else if (point.equals(this.p2)) {
+            return this.p2;
+        } else {
+            return null;
+        }
+    }
+
     draw(ctx, {color="white", lineWidth=6}={}) {
         ctx.beginPath();
         ctx.strokeStyle = color;
