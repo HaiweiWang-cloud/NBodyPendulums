@@ -1,5 +1,5 @@
 class Controller {
-    constructor(canvas) {
+    constructor(canvas, massEditorDiv) {
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
 
@@ -8,6 +8,7 @@ class Controller {
 
         this.gravity = 50;
         this.drag = 0;
+        this.massEditorDiv = massEditorDiv;
         
         this.#setInitialState();
         
@@ -100,7 +101,7 @@ class Controller {
 
     draw() {
         this.masses.forEach(mass => {
-            mass.draw(this.ctx, {color: "blue", size: 18});
+            mass.draw(this.ctx, {color:  "rgb(132, 203, 253)", size: 18});
         });
 
         this.rods.forEach(rod => {
@@ -140,6 +141,14 @@ class Controller {
         this.dragging = false;
         this.dragInitialDelta1 = null;
         this.dragInitialDelta2 = null;
+    }
+
+    #updateMassEditor(divElement) {
+        if (this.selected) {
+            if (this.#isMass(this.selected)) {
+                divElement.innerHTML = ""
+            }
+        }
     }
 
     #detachAllAttachedRods(mass) {

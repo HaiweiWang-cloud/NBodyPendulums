@@ -27,9 +27,19 @@
             <p>Drag</p>
             <p><input type="range" min = "0" max = "10" value = "0" class="slider" id="dragSlider"></p>
         </div>
+        <div id="massEditor"></div>
     </div>
 
     <canvas id="myCanvas"></canvas>
+
+    <p>
+        <button onclick="hideSavedData()">Show/Hide Saved data</button>
+        <button onclick="updateCurrentData()">Update Data</button>
+    </p>
+    <div id="dataDisplay">
+        <p class="data-text">Current masses <br> <span id="savedMasses"></span></p>
+        <p class="data-text">Current rods <br> <span id="savedRods"></span></p>
+    </div>
 
     <script src="js/utils.js"></script>
     <script src="js/primitives/point.js"></script>
@@ -45,6 +55,25 @@
         dragSlider.oninput = function() {controller.drag = this.value * 0.2};
 
         const controller = new Controller(myCanvas)
+       controller.load({
+            masses: JSON.parse('[{"x":140.08126805150025,"y":87.42652247627368,"vx":0,"vy":0,"mass":1},{"x":145.4508692716797,"y":113.90627065653332,"vx":0,"vy":0,"mass":1},{"x":169.6805246498754,"y":125.81936847563124,"vx":0,"vy":0,"mass":1},{"x":72,"y":172,"vx":0,"vy":0,"mass":1},{"x":125.63494324746378,"y":129.19483282445728,"vx":0,"vy":0,"mass":1},{"x":158.29896990634143,"y":195.9058818882885,"vx":0,"vy":0,"mass":1},{"x":179.92056369773732,"y":217.15537410698505,"vx":0,"vy":0,"mass":1},{"x":137.92091904096281,"y":216.98080466733137,"vx":0,"vy":0,"mass":1},{"x":152.36387346884925,"y":278.3674069967909,"vx":0,"vy":0,"mass":1},{"x":168.63140310291752,"y":336.15466752715975,"vx":0,"vy":0,"mass":1},{"x":193.494700246146,"y":278.92641995099905,"vx":0,"vy":0,"mass":1},{"x":215.31433694624073,"y":337.037550160933,"vx":0,"vy":0,"mass":1},{"x":240,"y":152,"vx":0,"vy":0,"mass":1}]'),
+            rods: JSON.parse('[{"p1":{"x":145.4508692716797,"y":113.90627065653332,"vx":0,"vy":0,"mass":1},"p2":{"x":140.08126805150025,"y":87.42652247627368,"vx":0,"vy":0,"mass":1},"l":27.01869132570482,"p1Attached":true,"p2Attached":true,"fixedPoint":null},{"p1":{"x":169.6805246498754,"y":125.81936847563124,"vx":0,"vy":0,"mass":1},"p2":{"x":145.4508692716797,"y":113.90627065653332,"vx":0,"vy":0,"mass":1},"l":26.999964803560825,"p1Attached":true,"p2Attached":true,"fixedPoint":null},{"p1":{"x":125.63494324746378,"y":129.19483282445728,"vx":0,"vy":0,"mass":1},"p2":{"x":72,"y":172,"vx":0,"vy":0,"mass":1},"l":68.62207716241778,"p1Attached":true,"p2Attached":true,"fixedPoint":null},{"p1":{"x":134,"y":55},"p2":{"x":140.08126805150025,"y":87.42652247627368,"vx":0,"vy":0,"mass":1},"l":32.991835065944414,"p1Attached":false,"p2Attached":true,"fixedPoint":null},{"p1":{"x":125.63494324746378,"y":129.19483282445728,"vx":0,"vy":0,"mass":1},"p2":{"x":145.4508692716797,"y":113.90627065653332,"vx":0,"vy":0,"mass":1},"l":25.02820523648616,"p1Attached":true,"p2Attached":true,"fixedPoint":null},{"p1":{"x":158.29896990634143,"y":195.9058818882885,"vx":0,"vy":0,"mass":1},"p2":{"x":145.4508692716797,"y":113.90627065653332,"vx":0,"vy":0,"mass":1},"l":83.0000598317699,"p1Attached":true,"p2Attached":true,"fixedPoint":null},{"p1":{"x":179.92056369773732,"y":217.15537410698505,"vx":0,"vy":0,"mass":1},"p2":{"x":158.29896990634143,"y":195.9058818882885,"vx":0,"vy":0,"mass":1},"l":30.31557747483256,"p1Attached":true,"p2Attached":true,"fixedPoint":null},{"p1":{"x":137.92091904096281,"y":216.98080466733137,"vx":0,"vy":0,"mass":1},"p2":{"x":158.29896990634143,"y":195.9058818882885,"vx":0,"vy":0,"mass":1},"l":29.315820425404752,"p1Attached":true,"p2Attached":true,"fixedPoint":null},{"p1":{"x":158.29896990634143,"y":195.9058818882885,"vx":0,"vy":0,"mass":1},"p2":{"x":169.6805246498754,"y":125.81936847563124,"vx":0,"vy":0,"mass":1},"l":71.0046417547659,"p1Attached":true,"p2Attached":true,"fixedPoint":null},{"p1":{"x":125.63494324746378,"y":129.19483282445728,"vx":0,"vy":0,"mass":1},"p2":{"x":158.29896990634143,"y":195.9058818882885,"vx":0,"vy":0,"mass":1},"l":74.27854807929921,"p1Attached":true,"p2Attached":true,"fixedPoint":null},{"p1":{"x":137.92091904096281,"y":216.98080466733137,"vx":0,"vy":0,"mass":1},"p2":{"x":179.92056369773732,"y":217.15537410698505,"vx":0,"vy":0,"mass":1},"l":42.00000744981587,"p1Attached":true,"p2Attached":true,"fixedPoint":null},{"p1":{"x":152.36387346884925,"y":278.3674069967909,"vx":0,"vy":0,"mass":1},"p2":{"x":137.92091904096281,"y":216.98080466733137,"vx":0,"vy":0,"mass":1},"l":63.06277727916217,"p1Attached":true,"p2Attached":true,"fixedPoint":null},{"p1":{"x":168.63140310291752,"y":336.15466752715975,"vx":0,"vy":0,"mass":1},"p2":{"x":152.36387346884925,"y":278.3674069967909,"vx":0,"vy":0,"mass":1},"l":60.03332407921464,"p1Attached":true,"p2Attached":true,"fixedPoint":null},{"p1":{"x":193.494700246146,"y":278.92641995099905,"vx":0,"vy":0,"mass":1},"p2":{"x":179.92056369773732,"y":217.15537410698505,"vx":0,"vy":0,"mass":1},"l":63.2449151133759,"p1Attached":true,"p2Attached":true,"fixedPoint":null},{"p1":{"x":215.31433694624073,"y":337.037550160933,"vx":0,"vy":0,"mass":1},"p2":{"x":193.494700246146,"y":278.92641995099905,"vx":0,"vy":0,"mass":1},"l":62.07253821135413,"p1Attached":true,"p2Attached":true,"fixedPoint":null},{"p1":{"x":240,"y":152,"vx":0,"vy":0,"mass":1},"p2":{"x":169.6805246498754,"y":125.81936847563124,"vx":0,"vy":0,"mass":1},"l":75.03501902799488,"p1Attached":true,"p2Attached":true,"fixedPoint":null}]')
+        });
+
+        dataDisplay.style.display = "none";
+        function hideSavedData() {
+            if (dataDisplay.style.display == "none") {
+                dataDisplay.style.display = "block";
+            } else {
+                dataDisplay.style.display = "none";
+            }
+            
+        }
+
+        function updateCurrentData() {
+            savedMasses.innerText = JSON.stringify(controller.masses);
+            savedRods.innerText = JSON.stringify(controller.rods);
+        }
 
         function save() {
             localStorage.setItem("masses", JSON.stringify(controller.masses));

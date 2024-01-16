@@ -16,6 +16,10 @@ body {
     height: 30px;
 }
 
+.data-text span{
+    font-size: 10px;
+}
+
 #myCanvas {
     background-color: black;
 }
