@@ -1,5 +1,5 @@
 class Controller {
-    constructor(canvas, massEditorDiv) {
+    constructor(canvas, massInput) {
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
 
@@ -8,7 +8,7 @@ class Controller {
 
         this.gravity = 50;
         this.drag = 0;
-        this.massEditorDiv = massEditorDiv;
+        this.massInput = massInput;
         
         this.#setInitialState();
         
@@ -101,7 +101,7 @@ class Controller {
 
     draw() {
         this.masses.forEach(mass => {
-            mass.draw(this.ctx, {color:  "rgb(132, 203, 253)", size: 18});
+            mass.draw(this.ctx, {color:  "rgb(132, 203, 253)", size: 12, scaleWithMass: true});
         });
 
         this.rods.forEach(rod => {
@@ -125,7 +125,6 @@ class Controller {
         if (this.selected) {
             this.selected.draw(this.ctx, {color: "yellow", size: 6});
         }
-
     }
 
     // Private methods
@@ -143,11 +142,17 @@ class Controller {
         this.dragInitialDelta2 = null;
     }
 
-    #updateMassEditor(divElement) {
-        if (this.selected) {
-            if (this.#isMass(this.selected)) {
-                divElement.innerHTML = ""
+    #updateMassEditor() {
+        if (this.massInput) {
+            if (this.selected) {
+                if (this.#isMass(this.selected)) {
+                    this.massInput.disabled = false;
+                    this.massInput.value = this.selected.mass;
+                    return;
+                }
             }
+            this.massInput.disabled = true;
+            this.massInput.value = "";
         }
     }
 
@@ -243,6 +248,8 @@ class Controller {
             this.selectedRod = this.hoveredRod;
             this.dragging = true;
             this.dragStartPoint = new Point(this.mouse.x, this.mouse.y);
+
+            this.#updateMassEditor();
             
             if (this.selectedRod) {
                 this.dragInitialDelta1 = Point.subtract(this.selectedRod.p1, this.mouse);

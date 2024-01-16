@@ -25,7 +25,7 @@ class Point {
         this.y = point.y;
     }
 
-    draw(ctx, { color="white", size=2, fill=true } = {}) {
+    draw(ctx, { color="white", size=2} = {}) {
         ctx.beginPath();
         ctx.arc(this.x, this.y, size/2, 0, 2 * Math.PI);
         ctx.fillStyle = color;
