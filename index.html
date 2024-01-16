@@ -7,37 +7,47 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>N-body pendulum physics simulator</h1>
-    <div id="controlsLine1">
-        <button onclick="pause()" id="pauseButton">Play</button>
-        <button onclick="freeze()">Freeze</button>
-        <button onclick="addPointMass()">Add a particle</button>
-        <button onclick="addRod()">Add a rod</button>
-        <button onclick="save()">Save</button>
-        <button onclick="load()">Load</button>
-        <button onclick="clearObjects()">Clear</button>
-        
+    <div class="title-banner">
+        <h1>N-body pendulum physics simulator</h1>
+    </div>
+    
+    <div class="controls">
+        <u>Controls:</u> left-click and hold to drag, right-click to free a mass from constraints. When paused, the length of rods can be changed. <br> Be careful, free particles fall!
     </div>
 
-    <div id="controlsLine2">
-        <div id="gravityContainer">
-            <p>Gravity</p>
-            <p><input type="range" min = "0" max = "200" value = "50" class="slider" id="gravitySlider"></p>
+    <div class="controls">
+        <div id="controlsLine1">
+            <button onclick="pause()" id="pauseButton">Play</button>
+            <button onclick="freeze()">Freeze</button>
+            <button onclick="addPointMass()">Add a particle</button>
+            <button onclick="addRod()">Add a rod</button>
+            <button onclick="save()">Save</button>
+            <button onclick="load()">Load</button>
+            <button onclick="clearObjects()">Clear</button>
+            
         </div>
-        <div id="dragContainer">
-            <p>Drag</p>
-            <p><input type="range" min = "0" max = "10" value = "0" class="slider" id="dragSlider"></p>
+    
+        <div id="controlsLine2">
+            <div id="gravityContainer">
+                <p>Gravity</p>
+                <p><input type="range" min = "0" max = "200" value = "50" class="slider" id="gravitySlider"></p>
+            </div>
+            <div id="dragContainer">
+                <p>Drag</p>
+                <p><input type="range" min = "0" max = "10" value = "0" class="slider" id="dragSlider"></p>
+            </div>
+            <div id="massEditContainer">
+                Mass: <input type="number" min="1" name="mass" id="massField">
+            </div>
+            <div id="massEditor"></div>
         </div>
-        <div id="massEditContainer">
-            Mass: <input type="number" min="1" name="mass" id="massField">
-        </div>
-        <div id="massEditor"></div>
     </div>
+    
 
     <canvas id="myCanvas"></canvas>
 
     <p>
-        <button onclick="hideSavedData()">Show/Hide Saved data</button>
+        <button onclick="hideSavedData()">Show/Hide Object Data</button>
         <button onclick="updateCurrentData()">Update Data</button>
     </p>
     <div id="dataDisplay">
