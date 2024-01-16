@@ -7,7 +7,7 @@ class Controller {
         this.rods =[];
 
         this.gravity = 50;
-
+        this.drag = 0;
         
         this.#setInitialState();
         
@@ -24,7 +24,8 @@ class Controller {
 
                 // Update without constraints
                 this.masses.forEach(mass => {
-                    mass.vy += this.gravity * deltaTime * MS;
+                    mass.vy += (this.gravity - mass.vy * this.drag) * deltaTime * MS ;
+                    mass.vx += -mass.vx * this.drag * deltaTime * MS;
                     mass.update(deltaTime);
                 });
     

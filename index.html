@@ -23,6 +23,10 @@
             <p>Gravity</p>
             <p><input type="range" min = "0" max = "200" value = "50" class="slider" id="gravitySlider"></p>
         </div>
+        <div id="dragContainer">
+            <p>Drag</p>
+            <p><input type="range" min = "0" max = "10" value = "0" class="slider" id="dragSlider"></p>
+        </div>
     </div>
 
     <canvas id="myCanvas"></canvas>
@@ -38,6 +42,7 @@
         const ctx = myCanvas.getContext("2d");
 
         gravitySlider.oninput = function() {controller.gravity = this.value};
+        dragSlider.oninput = function() {controller.drag = this.value * 0.2};
 
         const controller = new Controller(myCanvas)
 
