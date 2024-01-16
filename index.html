@@ -8,13 +8,21 @@
 </head>
 <body>
     <h1>N-body pendulum physics simulator</h1>
-    <div id="controls">
+    <div id="controlsLine1">
         <button onclick="pause()" id="pauseButton">Play</button>
         <button onclick="addPointMass()">Add a particle</button>
         <button onclick="addRod()">Add a rod</button>
         <button onclick="save()">Save</button>
         <button onclick="load()">Load</button>
         <button onclick="clearObjects()">Clear</button>
+        
+    </div>
+
+    <div id="controlsLine2">
+        <div id="gravityContainer">
+            <p>Gravity</p>
+            <p><input type="range" min = "0" max = "200" value = "50" class="slider" id="gravitySlider"></p>
+        </div>
     </div>
 
     <canvas id="myCanvas"></canvas>
@@ -28,6 +36,8 @@
     <script>
         myCanvas.width = myCanvas.height = 400;
         const ctx = myCanvas.getContext("2d");
+
+        gravitySlider.oninput = function() {controller.gravity = this.value};
 
         const controller = new Controller(myCanvas)
 

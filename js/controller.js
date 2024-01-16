@@ -6,7 +6,7 @@ class Controller {
         this.masses = [];
         this.rods =[];
 
-        this.gravity = 10;
+        this.gravity = 50;
 
         
         this.#setInitialState();
